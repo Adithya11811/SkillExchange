@@ -11,13 +11,35 @@ type Link = {
 
 const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false)
+  const [scrolling, setScrolling] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolling(true)
+      } else {
+        setScrolling(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
     const toggleMenu = () => {
       setIsMenuActive(!isMenuActive)
     }
 
   return (
-    <div className="absolute w-screen z-50 bg-transparent">
+    <div
+      className={`fixed w-screen z-50 bg-transparent bg-blend-saturation transition-colors ${
+        scrolling ? 'bg-custom-color' : 'bg-transparent'
+      }`}
+    >
+      <div className="w-32 h-32 fixed z-100 spots"></div>
       <div className="mx-4 my-2 flex flex-col  py-4 text-xl font-bold text-[#324B59] sm:mx-8 lg:mx-32">
         <div className="flex justify-between">
           <div className="flex items-center justify-center font-extrabold text-2xl">

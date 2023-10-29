@@ -13,6 +13,11 @@
   filter: blur(100px);
 }
 
+.bg-custom-color {
+  background-color: #e3f1fb;
+  height: 100px;
+}
+
 @layer base {
   body {
     @apply bg-[#e3f1fb];

@@ -30,13 +30,13 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="hidden sm:block">
+      <div className="hidden sm:block mr-20">
         <Image
           src={'/working.png'}
           alt="Logo"
-          width={682}
-          height={755}
-          className="w-50 h-screen"
+          width={500}
+          height={680}
+          className=" w-42 object-contain h-screen"
         />
       </div>
     </div>
