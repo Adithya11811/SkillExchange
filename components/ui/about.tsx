@@ -8,7 +8,7 @@ const About = () => {
         height="115"
         viewBox="0 0 144 115"
         fill="none"
-        className="absolute mx-28 my-72 z-0"
+        className="absolute mx-28 my-72 z-0 "
       >
         <path
           d="M2.76925 114.736C4.29866 114.736 5.5385 113.329 5.5385 111.593C5.5385 109.857 4.29866 108.449 2.76925 108.449C1.23983 108.449 0 109.857 0 111.593C0 113.329 1.23983 114.736 2.76925 114.736Z"
@@ -94,7 +94,7 @@ const About = () => {
       <div className="mx-32 mt-20 h-96 flex ">
         <div className="flex justify-between">
           {/* Left part */}
-          <div className="w-72 ">
+          <div className="w-72 flex items-center">
             <img
               src="tboy.png"
               alt=""

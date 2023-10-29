@@ -17,6 +17,10 @@
   background-color: #e3f1fb;
   height: 100px;
 }
+.text-10xl{
+  font-size: 5rem !important;
+  line-height: 2.25rem;
+}
 
 @layer base {
   body {
