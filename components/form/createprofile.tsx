@@ -1,7 +1,7 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
+import { FileUpload } from '@/app/(dashboard)/upload-button/page'
 import {
   Form,
   FormControl,
@@ -16,11 +16,10 @@ import { Input } from '../ui/input'
 import { Textarea } from '../ui/textarea'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
-// import { FileUpload } from '@/components/form/fileupload'
 
 const FormSchema = z.object({
   RealName: z.string().min(1, 'Name is required').max(100),
-//   profilePhoto: z.string().min(1, 'Photo is required'),
+  profilePhoto: z.string().min(1, 'Photo is required'),
   contacts: z.string().min(1, 'Phone is required').max(12),
   Bio: z.string().min(1, '10 words bio is minimum').max(150),
   birthDate: z.string(),
@@ -32,115 +31,117 @@ const CreateProfile = () => {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       RealName: '',
-    //   profilePhoto: '',
+      profilePhoto: '',
       contacts: '',
       Bio: '',
       birthDate: '',
     },
   })
-  const [thumbnailUrl, setThumbnailUrl] = useState('')
+
 
   const onSubmit1 = async (values: z.infer<typeof FormSchema>) => {
-    const formData = {
-      ...values,
-      profilePhoto: thumbnailUrl,
+    console.log('Form Data:', values)
+    try {
+      const response = await fetch('/api/profile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          RealName: values.RealName,
+          profilePhoto: values.profilePhoto,
+          contacts: values.contacts,
+          Bio: values.Bio,
+          birthDate: values.birthDate,
+        }),
+      });
+      if (response.ok) {
+        router.push('/Skills')
+      } else {
+        console.error('Entry failed')
+      }
+    } catch (error) {
+      console.error('Error during form submission:', error)
     }
-
-    // Use formData in your form submission logic
-    console.log('Form Data:', formData)
-    // try {
-    //   const response = await fetch('/api/profile', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //       RealName: values.RealName,
-    //       profilePhoto: values.profilePhoto,
-    //       contacts: values.contacts,
-    //       Bio: values.Bio,
-    //       birthDate: values.birthDate,
-    //     }),
-    //   });
-    //   if (response.ok) {
-    //     router.push('/')
-    //   } else {
-    //     console.error('Entry failed')
-    //   }
-    // } catch (error) {
-    //   console.error('Error during form submission:', error)
-    // }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit1)} className="w-full">
-        <div className="space-y-2">
-          <FormField
-            control={form.control}
-            name="RealName"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Johnathon Doe" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="contacts"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Contacts</FormLabel>
-                <FormControl>
-                  <Input placeholder="phone number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="Bio"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Bio</FormLabel>
-                <FormControl>
-                  <Textarea placeholder="Write about yourself" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          {/* <FormField
-            control={form.control}
-            name="profilePhoto"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <FileUpload onThumbnailUrlChange={setThumbnailUrl} />
-                </FormControl>
-              </FormItem>
-            )}
-          /> */}
-          <FormField
-            control={form.control}
-            name="birthDate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Date of Birth</FormLabel>
-                <div className="flex">
+      <form onSubmit={form.handleSubmit(onSubmit1)} className="w-full px-72">
+        <div className="flex justify-between ">
+          <div>
+            <FormField
+              control={form.control}
+              name="RealName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="yyyymmdd" {...field} />
+                    <Input placeholder="Johnathon Doe" {...field} />
                   </FormControl>
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="contacts"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Contacts</FormLabel>
+                  <FormControl>
+                    <Input placeholder="phone number" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="Bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Bio</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="Write about yourself" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div>
+            <FormField
+              control={form.control}
+              name="profilePhoto"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <FileUpload
+                      endpoint="profilePicture"
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="birthDate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Date of Birth</FormLabel>
+                  <div className="flex">
+                    <FormControl>
+                      <Input placeholder="yyyymmdd" {...field} />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
         </div>
         <Button className="w-full mt-4 bg-black text-white" type="submit">
           Create Profile

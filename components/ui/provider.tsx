@@ -9,7 +9,7 @@ interface ProviderProps{
 
 const Provider:FC<ProviderProps> = ({children}) => {
   return (
-    <SessionProvider>provider</SessionProvider>
+    <SessionProvider>{children}</SessionProvider>
   )
 }
 export default Provider

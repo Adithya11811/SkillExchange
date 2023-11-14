@@ -1,3 +1,4 @@
+import AuthRedirecter from "@/components/providers/AuthRedirector"
 import { authOptions } from "@/lib/auth"
 import { getServerSession } from "next-auth"
 
@@ -8,13 +9,14 @@ const page = async() => {
         if(session?.user){
             return (
               <h2 className="flex justify-center items-center h-screen">
-                Wlcome back - {session.user.username}
+                Welcome back - {session.user.username}
               </h2>
             )
         }
 
   return (    
-    <div className="flex justify-center items-center h-screen">Login and comeback</div>
+    <AuthRedirecter/>
+    
   )
 }
 export default page

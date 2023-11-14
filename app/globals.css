@@ -25,5 +25,6 @@
 @layer base {
   body {
     @apply bg-[#e3f1fb];
+    @apply text-[#324B59]
   }
 }

@@ -112,17 +112,17 @@ const About = () => {
         </div>
         <div className="w-50  sm:mx-20 md:w-6/12 lg:mx-20 lg:w-6/12">
           {/* Right part */}
-          <h2 className="font-hindi inline-block border-b border-[#D9A15C] text-xl font-bold text-black sm:text-4xl md:text-4xl 2xl:text-5xl">
+          <h2 className="font-hindi inline-block border-b border-[#D9A15C] text-xl font-bold  sm:text-4xl md:text-4xl 2xl:text-5xl">
             {' '}
             About Skill Swap{' '}
           </h2>
-          <p className="md:text-base xl:text-lg mt-6 text-xs text-black sm:text-sm lg:text-base">
+          <p className="md:text-base xl:text-lg mt-6 text-xs sm:text-sm lg:text-base">
             An innovative platform that promotes the exchange of knowledge and
             expertise among its community members. This unique concept
             encourages individuals with different skill sets to come together,
             offering their talents in exchange for learning something new.
           </p>
-          <p className="md:text-base xl:text-lg mt-4 text-xs text-black sm:text-sm lg:text-base">
+          <p className="md:text-base xl:text-lg mt-4 text-xs  sm:text-sm lg:text-base">
             Whether you&quot;re an expert in coding, cooking, or a multitude of
             other skills, Skill Swap allows you to connect with people seeking
             to broaden their abilities. By facilitating this mutual learning

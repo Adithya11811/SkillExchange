@@ -4,6 +4,7 @@ import Guide from "@/components/ui/guide"
 import Hero from "@/components/ui/hero"
 import Navbar from "@/components/ui/navbar"
 
+
 const Page = () => {
   return (
     <div>

@@ -38,7 +38,7 @@ model Skill {
   id          Int   @id @default(autoincrement())
   skillName   String
   description String    @db.VarChar(255)
-  Proficiency  Int   
+  Proficiency String  
   userId       Int   
   user User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   createdAt   DateTime  @default(now())

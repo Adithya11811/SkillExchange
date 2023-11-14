@@ -3,12 +3,13 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import Tilt from 'react-parallax-tilt'
 
 const Hero = () => {
   return (
     <div className="flex justify-center z-0 items-center">
       <div className="lg:mx-32 mx-6 md:mx-8 sm:mx-8 text-[#324B59] h-screen">
-        <div className='my-56 2xl:my-72 '>
+        <div className="my-56 2xl:my-72 ">
           <h1 className="text-5xl xl:text-7xl font-extrabold">Welcome</h1>
           <p className="text-xl xl:text-2xl font-medium my-2 py-4 px-2">
             Expand your knowledge
@@ -30,15 +31,17 @@ const Hero = () => {
           </Button>
         </div>
       </div>
-      <div className="hidden sm:block">
-        <Image
-          src={'/working.png'}
-          alt="Logo"
-          width={500}
-          height={680}
-          className=" w-42 mr-20 2xl:mr-96 object-contain h-screen"
-        />
-      </div>
+      <Tilt>
+        <div className="hidden sm:block">
+          <Image
+            src={'/working.png'}
+            alt="Logo"
+            width={500}
+            height={680}
+            className=" w-42 mr-20 2xl:mr-96 object-contain h-screen"
+          />
+        </div>
+      </Tilt>
     </div>
   )
 }

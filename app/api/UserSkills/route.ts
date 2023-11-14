@@ -7,28 +7,23 @@ import { authOptions } from '@/lib/auth'
 import { Prisma } from '@prisma/client'
 
 // Define Schema for input validation
-const ProfileSchema = z.object({
-  RealName: z.string().min(1, 'Name is required').max(100),
-  profilePhoto: z.string().min(1, 'Photo is required'),
-  contacts: z.string().min(1, 'Phone is required').max(12),
-  Bio: z.string().min(1, '10 words bio is minimum').max(150),
-  birthDate: z.string().min(8,'Write your birthdate'), 
+const SkillSchema = z.object({
+  SkillName: z.string().min(1, 'Skill Name is required').max(100),
+  proficiency: z.string().min(1, 'Photo is required'),
+  description: z.string().min(1, '10 words bio is minimum').max(150),
 })
-
 export async function POST(req: Request) {
   try {
     const body = await req.json()
     const session = await getServerSession(authOptions)
     console.log('Session:', session)
 
-    const { RealName, profilePhoto, contacts, Bio, birthDate } =
-      ProfileSchema.parse(body)
+    const { SkillName, proficiency, description} =
+      SkillSchema.parse(body)
     console.log('Parsed body:', {
-      RealName,
-      profilePhoto,
-      contacts,
-      Bio,
-      birthDate,
+      SkillName,
+      proficiency,
+      description,
     })
 
     const username = session?.user?.username
@@ -43,13 +38,11 @@ export async function POST(req: Request) {
       )
     }
 
-    const profile = await db.profile.create({
+    const profile = await db.skill.create({
       data: {
-        RealName,
-        profilePhoto,
-        contacts,
-        Bio,
-        birthdate: birthDate, // Treat as string
+        skillName: SkillName,
+        Proficiency: proficiency,
+        description, 
         user: {
           connect: {
             username,
