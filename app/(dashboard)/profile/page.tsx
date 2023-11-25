@@ -6,16 +6,15 @@ import RedirectHelper from '@/components/providers/redirectHelper'
 
 import {
   checkProfile,
-  getProfileData,
 } from '@/components/providers/profileChecker'
 
 const ProfilePage = async () => {
   // Check if a profile exists when rendering the component
-  const NoProfile = await checkProfile()
+  const Profile = await checkProfile()
 
-  if (!NoProfile) {
+  if (Profile !== null || Profile !== undefined) {
     // If the profile exists, you can also fetch and use the profile data here if needed
-    const profileData = getProfileData()
+    const profileData = checkProfile()
     console.log('Profile Data:', profileData)
 
     // Redirect to the '/admin' page or perform other actions

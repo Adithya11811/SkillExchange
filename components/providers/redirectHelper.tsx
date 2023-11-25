@@ -9,4 +9,3 @@ import { useRouter } from 'next/navigation'
   return null
 }
 export default RedirectHelper
-

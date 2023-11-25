@@ -69,10 +69,7 @@ const AddSkills = () => {
               <FormItem>
                 <FormLabel>Skill Name</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder="Photography"
-                    {...field}     
-                  />
+                  <Input placeholder="Photography" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
