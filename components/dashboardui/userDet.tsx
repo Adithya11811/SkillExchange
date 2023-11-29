@@ -1,3 +1,4 @@
+import AuthRedirecter from '../providers/AuthRedirector'
 import { checkProfile } from '../providers/profileChecker'
 
 const UserDetail: React.FC = async () => {
@@ -6,7 +7,7 @@ const UserDetail: React.FC = async () => {
 
   if (Profile === undefined || Profile === null) {
     // Handle loading state
-    return <div>Loading...</div>
+    return <AuthRedirecter/>
   } else {
     // Render user details if the profile exists
     return (
@@ -14,7 +15,7 @@ const UserDetail: React.FC = async () => {
         {/* left user details */}
         <div>
           <h2>{Profile.RealName}</h2>
-          <p>Email: {Profile.contacts}</p>
+          <p>Contacts: {Profile.contacts}</p>
           {/* Add more user details as needed */}
         </div>
         {/* right skill details */}

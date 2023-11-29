@@ -50,10 +50,10 @@ const DashboardNavbar = () => {
             Skill<br></br> Exchange
           </Link>
           <div className="hidden space-x-10 lg:flex">
-            <Link className="flex items-center" href="/about">
+            <Link className="flex items-center" href="/listings">
               Listings
             </Link>
-            <Link className="flex items-center" href="/contact">
+            <Link className="flex items-center" href="/request">
               Request
             </Link>
             <Link className="flex items-center" href="/contact">

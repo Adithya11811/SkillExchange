@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 const AuthRedirecter = () => {
   const router = useRouter()
   router.refresh()
-  router.push('/signin')
+  router.push('/profile')
 
   return null
 }

@@ -6,13 +6,9 @@ module.exports = nextConfig
 module.exports = {
   images: {
     domains: ['utfs.io'],
-  }
-   
-};
+  },
+  // experimental: {
+  //   reactRefresh: false,
+  // },
+}
 
-
-// module.exports = {
-//   experimental: {
-//     reactRefresh: false,
-//   },
-// }

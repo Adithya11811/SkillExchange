@@ -46,7 +46,7 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
   if(signInData?.error){
     console.log(signInData.error)
   }else{
-    router.push('/profile')
+    router.push('/admin')
   }
 }
 

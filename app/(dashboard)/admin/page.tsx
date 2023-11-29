@@ -17,7 +17,7 @@ const page = async() => {
 
   return (    
     <AuthRedirecter/>
-    
+
   )
 }
 export default page

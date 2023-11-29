@@ -18,17 +18,15 @@ import { Button } from '@/components/ui/button'
 
 const FormSchema = z.object({
   SkillName: z.string().min(1, 'Skill Name is required').max(100),
-  proficiency: z.string().min(1, 'Photo is required'),
-  description: z.string().min(1, '10 words bio is minimum').max(150),
+  description: z.string().min(1, '10 words description is minimum').max(150),
 })
 
-const AddSkills = () => {
+const PostReq = () => {
   const router = useRouter()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       SkillName: '',
-      proficiency: '',
       description: '',
     },
   })
@@ -36,20 +34,19 @@ const AddSkills = () => {
   const onSubmit1 = async (values: z.infer<typeof FormSchema>) => {
     console.log('Form Data:', values)
     try {
-      const response = await fetch('/api/UserSkills', {
+      const response = await fetch('/api/PostReq', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           SkillName: values.SkillName,
-          proficiency: values.proficiency,
           description: values.description,
         }),
       })
       if (response.ok) {
         router.refresh()
-        router.push('/Skills')
+        router.push('/request')
       } else {
         console.error('Entry failed')
       }
@@ -77,25 +74,12 @@ const AddSkills = () => {
           />
           <FormField
             control={form.control}
-            name="proficiency"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Proficiency</FormLabel>
-                <FormControl>
-                  <Input placeholder="Rate out of 5" {...field} max={5} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="description"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Write about your Skill" {...field} />
+                  <Textarea placeholder="Write about What u want to learn" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -106,17 +90,9 @@ const AddSkills = () => {
           <Button
             className="w-full mt-4 bg-black mr-2 text-white"
             type="submit"
+            variant={'secondary'}
           >
-            Add Skill
-          </Button>
-          <Button
-            onClick={() => {
-              router.push('/admin')
-            }}
-            className="w-full mt-4 ml-10 bg-black text-white"
-            type="button"
-          >
-            Skip
+            Post a request
           </Button>
         </div>
       </form>
@@ -124,4 +100,4 @@ const AddSkills = () => {
   )
 }
 
-export default AddSkills
+export default PostReq
