@@ -43,12 +43,16 @@ export const checkProfile = async () => {
           userId: Number(userId),
         },
       })
-
+      const skills = await db.skill.findMany({
+        where: {
+          userId: Number(userId),
+        },
+      })
       console.log('Profile:', profile)
 
       if (profile !== null) {
         // If a profile is found, return the profile object
-        return profile
+        return {profile,skills}
       }
     }else{
       console.log("Abe chutiye")

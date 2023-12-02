@@ -44,7 +44,7 @@ const DashboardNavbar = () => {
       <div className="mx-4 my-2 flex flex-col  py-4 text-xl font-bold text-[#324B59] sm:mx-8 lg:mx-32">
         <div className="flex justify-between">
           <Link
-            href="/"
+            href="/admin"
             className="flex items-center justify-center font-extrabold text-2xl"
           >
             Skill<br></br> Exchange

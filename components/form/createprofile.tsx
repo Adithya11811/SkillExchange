@@ -103,14 +103,14 @@ const CreateProfile = () => {
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Write about yourself" {...field} />
+                    <Textarea className="w-60 h-40" placeholder="Write about yourself" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div>
+          <div className='mt-6'>
             <FormField
               control={form.control}
               name="profilePhoto"

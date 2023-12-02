@@ -15,43 +15,58 @@ model User {
   username  String    @unique
   email     String    @unique
   password  String
-  profiles  Profile[]
+  profile   Profile?
   skills    Skill[]
-  requests    Request[]
+  requests  Request[]
+  participant1 Rooms[] @relation("participant1")
+  participant2 Rooms[] @relation("participant2")
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
 
 model Profile {
   id           Int       @id @default(autoincrement())
-  RealName      String
+  RealName     String
   profilePhoto String    @db.Text
-  birthdate    String  
+  birthdate    String
   contacts     String
   Bio          String    @db.VarChar(255)
-  userId       Int
-  user User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  userId       Int       @unique
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model Skill {
-  id          Int   @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   skillName   String
-  description String    @db.VarChar(255)
-  Proficiency String  
-  userId       Int   
-  user User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  description String @db.VarChar(255)
+  Proficiency String
+  userId      Int
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Request {
-  id          Int   @id @default(autoincrement())
+  id          Int    @id @default(autoincrement())
   skillName   String
-  description String    @db.VarChar(255)
-  userId       Int   
-  user User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  createdAt   DateTime  @default(now())
-  updatedAt DateTime @updatedAt
+  description String @db.VarChar(255)
+  userId      Int
+  user        User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Rooms {
+  id              String   @id @default(uuid())
+  participant1id Int
+  participant1   User     @relation("participant1", fields: [participant1id], references: [id])
+
+  participant2id Int
+  participant2   User     @relation("participant2", fields: [participant2id], references: [id])
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }
