@@ -18,11 +18,10 @@ type PostsArray = {
 }
 
 const Posts = ({ posts }: PostsProps) => {
-  console.log(typeof(posts))
-    if (!posts || posts.length == 0) {
-      return <p>No requests available.</p>
-    }
-    console.log(posts[0].user.profiles[0]?.profilePhoto)
+  console.log(typeof posts)
+  if (!posts || posts.length == 0) {
+    return <p>No requests available.</p>
+  }
   return (
     <>
       {posts.map((post) => (
@@ -33,11 +32,11 @@ const Posts = ({ posts }: PostsProps) => {
           {/* Left Side: User Image and Name */}
           <div className="flex flex-col items-center">
             <img
-              src={post.user.profiles[0]?.profilePhoto || ''} 
+              src={ ''}
               alt="avatar"
               height={70}
               width={70}
-              className='object-cover rounded-xl'
+              className="object-cover rounded-xl"
             />
             <div className="ml-3">
               <span className="text-xl font-semibold">

@@ -53,7 +53,7 @@ export async function GET(req: NextApiRequest) {
         user: {
           select: {
             username: true,
-            profiles: {
+            profile: {
               select: {
                 profilePhoto: true,
               },
