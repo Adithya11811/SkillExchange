@@ -56,11 +56,8 @@ const DashboardNavbar = () => {
             <Link className="flex items-center" href="/request">
               Request
             </Link>
-            <Link className="flex items-center" href="/contact">
+            <Link className="flex items-center" href="/rooms">
               Rooms
-            </Link>
-            <Link className="flex items-center" href="/contact">
-              Notification
             </Link>
             <Button
               variant="default"
@@ -98,9 +95,6 @@ const MobileNav = () => {
         </Link>
         <Link className="flex items-center" href="#">
           Rooms
-        </Link>
-        <Link className="flex items-center" href="#">
-          Notifications
         </Link>
         <Link className="flex items-center" href="#">
           Log out
