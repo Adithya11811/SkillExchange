@@ -20,6 +20,9 @@ const SearchPage = () => {
   const search = useSearchParams()
   const searchQuery = search ? search.get('q') : null
   const router = useRouter()
+  if(searchQuery === null){
+    router.push('/listings')
+  }
 
   const encodedSearchQuery = encodeURI(searchQuery || '')
 
@@ -30,7 +33,7 @@ const SearchPage = () => {
     { revalidateOnFocus: false },
   )
   if (!encodedSearchQuery) {
-    router.push('/')
+    router.push('/listings')
   }
 
   if (isLoading) {

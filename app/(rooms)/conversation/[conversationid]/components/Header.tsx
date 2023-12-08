@@ -1,19 +1,30 @@
-'use client';
+'use client'
 
-import useOtherUser from '@/lib/hooks/useOtherUsers';
-import {User,Conversation} from '@prisma/client'
-import { useMemo } from 'react';
-import Link from 'next/link';
+import useOtherUser from '@/lib/hooks/useOtherUsers'
+import { User, Conversation, Profile } from '@prisma/client'
+import { useMemo } from 'react'
+import Link from 'next/link'
 import { HiChevronLeft } from 'react-icons/hi'
-import { HiEllipsisHorizontal } from 'react-icons/hi2';
+import { HiEllipsisHorizontal } from 'react-icons/hi2'
 import { ConversationType } from '@/app/types'
+import Avatar from '@/components/sidebars/Avatar'
+import { Video } from 'lucide-react'
 
 interface HeaderProps {
   conversation: ConversationType
-  user : User
+  user: User
+  profile: Profile
+  name: string
+  roomid: string
 }
 
-const Header: React.FC<HeaderProps> = ({ conversation, user }) => {
+const Header: React.FC<HeaderProps> = ({
+  conversation,
+  user,
+  profile,
+  name,
+  roomid
+}) => {
   console.log(conversation)
   const otherUser = useOtherUser(conversation, user)
 
@@ -38,7 +49,7 @@ const Header: React.FC<HeaderProps> = ({ conversation, user }) => {
     >
       <div className="flex gap-3 items-center">
         <Link
-          href="/conversations"
+          href="/rooms"
           className="
             lg:hidden 
             block 
@@ -55,6 +66,10 @@ const Header: React.FC<HeaderProps> = ({ conversation, user }) => {
         ) : (
           <Avatar user={otherUser} />
         )} */}
+        <Link href={`/user/${name}`}>
+          <Avatar user={profile} />
+        </Link>
+
         <div className="flex flex-col">
           <div>{conversation.name || otherUser?.username || 'hello'}</div>
           <div className="text-sm font-light text-neutral-500">
@@ -62,6 +77,9 @@ const Header: React.FC<HeaderProps> = ({ conversation, user }) => {
           </div>
         </div>
       </div>
+      <Link href={`/videocall/${roomid}?q=${user.username}`}>
+        <Video />
+      </Link>
       {/* <HiEllipsisHorizontal
         size={32}
         onClick={() => setDrawerOpen(true)}

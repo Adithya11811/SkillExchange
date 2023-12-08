@@ -1,4 +1,6 @@
 import React from 'react'
+import { motion } from 'framer-motion'
+import { videoAnimation } from '@/lib/animation'
 
 interface CardProps {
   imageUrl: string
@@ -8,7 +10,7 @@ interface CardProps {
 
 const Card: React.FC<CardProps> = ({ imageUrl, title, description }) => {
   return (
-    <div className="mt-6 mx-10 bg-transparent">
+    <motion.div className="mt-6 mx-10 bg-transparent" variants={videoAnimation}>
       <img
         src={imageUrl}
         alt="Card Image"
@@ -18,7 +20,7 @@ const Card: React.FC<CardProps> = ({ imageUrl, title, description }) => {
         <h2 className="text-xl  text-center font-extrabold mb-2">{title}</h2>
         <p className="text-gray-600 text-center">{description}</p>
       </div>
-    </div>
+    </motion.div>
   )
 }
 

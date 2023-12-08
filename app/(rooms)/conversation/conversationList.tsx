@@ -1,6 +1,6 @@
 'use client'
 
-import { Conversation, User } from '@prisma/client'
+import { Conversation, Profile, User } from '@prisma/client'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useEffect, useMemo, useState } from 'react'
@@ -13,15 +13,22 @@ import useConversation from '@/lib/hooks/useConversation'
 import ConversationBox from './conversationBox'
 import { ConversationType, FullConversationType } from '@/app/types'
 
+interface UserAndProfile {
+  user: User
+  profile: Profile
+}
+
 interface ConversationListProps {
   initialItems: FullConversationType[] 
   users: User[]
   title?: string
+  profiles: Profile[] | null
 }
 
 const ConversationList: React.FC<ConversationListProps> = ({
   initialItems,
   users,
+  profiles,
 }) => {
   const [items, setItems] = useState(initialItems)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -31,59 +38,70 @@ const ConversationList: React.FC<ConversationListProps> = ({
 
   const { conversationId, isOpen } = useConversation()
 
-//   const pusherKey = useMemo(() => {
-//     return session.data?.user?.email
-//   }, [session.data?.user?.email])
+  //   const pusherKey = useMemo(() => {
+  //     return session.data?.user?.email
+  //   }, [session.data?.user?.email])
 
-//   useEffect(() => {
-//     if (!pusherKey) {
-//       return
-//     }
+  //   useEffect(() => {
+  //     if (!pusherKey) {
+  //       return
+  //     }
 
-//     pusherClient.subscribe(pusherKey)
+  //     pusherClient.subscribe(pusherKey)
 
-//     const updateHandler = (conversation: FullConversationType) => {
-//       setItems((current) =>
-//         current.map((currentConversation) => {
-//           if (currentConversation.id === conversation.id) {
-//             return {
-//               ...currentConversation,
-//               messages: conversation.messages,
-//             }
-//           }
+  //     const updateHandler = (conversation: FullConversationType) => {
+  //       setItems((current) =>
+  //         current.map((currentConversation) => {
+  //           if (currentConversation.id === conversation.id) {
+  //             return {
+  //               ...currentConversation,
+  //               messages: conversation.messages,
+  //             }
+  //           }
 
-//           return currentConversation
-//         })
-//       )
-//     }
+  //           return currentConversation
+  //         })
+  //       )
+  //     }
 
-    // const newHandler = (conversation: FullConversationType) => {
-    //   setItems((current) => {
-    //     if (find(current, { id: conversation.id })) {
-    //       return current
-    //     }
+  // const newHandler = (conversation: FullConversationType) => {
+  //   setItems((current) => {
+  //     if (find(current, { id: conversation.id })) {
+  //       return current
+  //     }
 
-    //     return [conversation, ...current]
-    //   })
-    // }
+  //     return [conversation, ...current]
+  //   })
+  // }
 
-//     const removeHandler = (conversation: FullConversationType) => {
-//       setItems((current) => {
-//         return [...current.filter((convo) => convo.id !== conversation.id)]
-//       })
-//     }
+  //     const removeHandler = (conversation: FullConversationType) => {
+  //       setItems((current) => {
+  //         return [...current.filter((convo) => convo.id !== conversation.id)]
+  //       })
+  //     }
 
-//     pusherClient.bind('conversation:update', updateHandler)
-//     pusherClient.bind('conversation:new', newHandler)
-//     pusherClient.bind('conversation:remove', removeHandler)
-//   }, [pusherKey, router])
+  //     pusherClient.bind('conversation:update', updateHandler)
+  //     pusherClient.bind('conversation:new', newHandler)
+  //     pusherClient.bind('conversation:remove', removeHandler)
+  //   }, [pusherKey, router])
+
+  const userAndProfile: UserAndProfile[] = useMemo(() => {
+    // Ensure both users and profiles are available
+    if (!users || !profiles) {
+      return []
+    }
+
+    // Assuming users and profiles arrays have the same length
+    return users.map((user, index) => ({ user, profile: profiles[index] }))
+  }, [users, profiles])
 
   return (
     <>
       <aside
         className={clsx(
           `
-        fixed 
+        hidden 
+        lg:fixed 
         inset-y-0 
         pb-20
         lg:pb-0
@@ -93,6 +111,7 @@ const ConversationList: React.FC<ConversationListProps> = ({
         overflow-y-auto 
         border-r 
         border-gray-200 
+        bg-slate-100
       `,
           isOpen ? 'hidden' : 'block w-full left-0'
         )}
@@ -101,14 +120,28 @@ const ConversationList: React.FC<ConversationListProps> = ({
           <div className="flex justify-between mb-4 pt-4">
             <div className="text-2xl font-bold text-neutral-800">Messages</div>
           </div>
-          {items.map((item) => (
-            <ConversationBox
-              key={item.id}
-              data={item}
-              users={users}
-              selected={conversationId === item.id}
-            />
-          ))}
+          {items.map((item) => {
+            const UserProfile = userAndProfile.find(
+              (uap) =>
+                uap.user.id === item.users[0].id ||
+                uap.user.id === item.users[1].id // assuming userId is the user's ID in the item
+            )
+
+            if (userAndProfile) {
+              return (
+                <div key={UserProfile?.user.id}>
+                  <ConversationBox
+                    key={item.id}
+                    data={item}
+                    users={UserProfile!}
+                    selected={conversationId === item.id}
+                  />
+                </div>
+              )
+            }
+
+            return null
+          })}
         </div>
       </aside>
     </>

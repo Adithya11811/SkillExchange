@@ -4,6 +4,7 @@ import clsx from "clsx";
 
 import useConversation from "@/lib/hooks/useConversation";
 import EmptyState from "@/components/rooms/EmptyState";
+import UserList from "../rooms/UserList";
 
 const Home = () => {
   const { isOpen } = useConversation();

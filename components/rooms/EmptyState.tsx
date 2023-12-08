@@ -12,6 +12,7 @@ const EmptyState = () => {
         justify-center 
         items-center 
         bg-gray-100
+        ml-40
       "
     >
       <div className="text-center items-center flex flex-col">

@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 import { FullMessageType } from '@/app/types'
 import { User } from '@prisma/client'
 
-// import Avatar from '@/app/components/Avatar'
+// import Avatar from '@/components/ui/Avatar'
 // import ImageModal from './ImageModal'
 
 interface MessageBoxProps {

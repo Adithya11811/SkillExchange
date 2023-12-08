@@ -128,8 +128,11 @@ const SignUpForm = () => {
             )}
           />
         </div>
-        <Button className="w-full mt-4 bg-black text-white" type="submit">
-          Sign up
+        <Button
+          className=" ml-14 grid place-content-center w-1/2 mt-2 bg-[#2B3640] hover:bg-[#70bdfc] text-[#b7ccde] hover:text-[#2B3640] hover:border-zinc-950 hover:font-semibold text-base"
+          type="submit"
+        >
+          Sign in
         </Button>
       </form>
       <div className="mx-auto my-2 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
@@ -138,7 +141,7 @@ const SignUpForm = () => {
       <GoogleSignInButton>Sign up with Google</GoogleSignInButton>
       <p className="text-center text-sm text-gray-600 mt-2">
         If you don&apos;t have an account, please&nbsp;
-        <Link className="text-blue-500 hover:underline" href="/sign-in">
+        <Link className="text-blue-500 hover:underline" href="/signin">
           Sign in
         </Link>
       </p>

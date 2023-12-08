@@ -17,6 +17,8 @@ import {signIn} from 'next-auth/react'
 import Link from 'next/link'
 import GoogleSignInButton from './GoogleSigninButton'
 import { useRouter } from 'next/navigation'
+import { useToast } from '../ui/use-toast'
+import { ToastAction } from '@radix-ui/react-toast'
 
 const FormSchema = z.object({
   email: z.string().min(1, 'Email is required').email('Invalid email'),
@@ -27,6 +29,7 @@ const FormSchema = z.object({
 })
 
 const SignInForm = () => {
+  const { toast } = useToast()
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -44,7 +47,12 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
   })
   console.log(signInData?.status)
   if(signInData?.error){
-    console.log(signInData.error)
+    toast({
+      variant: 'destructive',
+      title: 'Invalid Login',
+      description: 'Oops! something went wrong!',
+      action: <ToastAction altText="Try again">Try again</ToastAction>,
+    })
   }else{
     router.push('/admin')
   }
@@ -53,7 +61,7 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
-        <div className="space-y-2">
+        <div className="space-y-1">
           <FormField
             control={form.control}
             name="email"
@@ -61,7 +69,11 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input placeholder="mail@example.com" {...field} />
+                  <Input
+                    placeholder="mail@example.com"
+                    {...field}
+                    className="rounded-2xl"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -78,6 +90,7 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
                     type="password"
                     placeholder="Enter your password"
                     {...field}
+                    className="rounded-2xl"
                   />
                 </FormControl>
                 <FormMessage />
@@ -85,11 +98,14 @@ const onSubmit = async (values: z.infer<typeof FormSchema>) => {
             )}
           />
         </div>
-        <Button className="w-full mt-2 bg-black text-white" type="submit">
+        <Button
+          className=" ml-14 grid place-content-center w-1/2 mt-2 bg-[#2B3640] hover:bg-[#70bdfc] text-[#b7ccde] hover:text-[#2B3640] hover:border-zinc-950 hover:font-semibold text-base"
+          type="submit"
+        >
           Sign in
         </Button>
       </form>
-      <div className="mx-auto my-2 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
+      <div className="mx-auto my-1 flex w-full items-center justify-evenly before:mr-4 before:block before:h-px before:flex-grow before:bg-stone-400 after:ml-4 after:block after:h-px after:flex-grow after:bg-stone-400">
         or
       </div>
       <GoogleSignInButton>Sign in with Google</GoogleSignInButton>

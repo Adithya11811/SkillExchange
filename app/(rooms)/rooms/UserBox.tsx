@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { User } from '@prisma/client'
 
 import LoadingModal from './LoadingModal'
-import AvatarParser from './AvatarParser'
+
 
 
 interface UserBoxProps {
@@ -24,7 +24,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
     axios
       .post('/api/conversations', { userId: data.id })
       .then((data) => {
-        router.push(`/rooms/${data.data.id}`)
+        router.push(`/conversation/${data.data.id}`)
       })
       .finally(() => setIsLoading(false))
   }, [data, router])
@@ -32,7 +32,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
   return (
     <>
       {isLoading && <LoadingModal />}
-      {/* <div
+      <div
         onClick={handleClick}
         className="
           w-full 
@@ -40,14 +40,13 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
           flex 
           items-center 
           space-x-3 
-          bg-white 
-          p-3 
-          hover:bg-neutral-100
+        
+          p-3
           rounded-lg
           transition
           cursor-pointer
         "
-      > */}
+      >
         {/* <AvatarParser data={data} /> */}
         <div className="min-w-0 flex-1">
           <div className="focus:outline-none">
@@ -57,7 +56,7 @@ const UserBox: React.FC<UserBoxProps> = ({ data }) => {
             </div>
           </div>
         </div>
-      {/* </div> */}
+      </div>
     </>
   )
 }

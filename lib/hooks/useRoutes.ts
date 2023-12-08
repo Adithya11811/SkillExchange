@@ -25,14 +25,18 @@ const useRoutes = () => {
         active: pathname === '/listings',
       },
       {
-        label: 'requests',
-        href: '/requests',
+        label: 'request',
+        href: '/request',
         icon: FaRegHandshake,
         active: pathname === '/requests',
       },
       {
         label: 'Logout',
-        onClick: () => signOut(),
+        onClick: () =>
+          signOut({
+            redirect: true,
+            callbackUrl: `${window.location.origin}/signin`,
+          }),
         href: '#',
         icon: HiArrowLeftOnRectangle,
       },

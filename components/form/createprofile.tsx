@@ -38,7 +38,6 @@ const CreateProfile = () => {
     },
   })
 
-
   const onSubmit1 = async (values: z.infer<typeof FormSchema>) => {
     console.log('Form Data:', values)
     try {
@@ -54,7 +53,7 @@ const CreateProfile = () => {
           Bio: values.Bio,
           birthDate: values.birthDate,
         }),
-      });
+      })
       if (response.ok) {
         router.push('/Skills')
       } else {
@@ -103,14 +102,18 @@ const CreateProfile = () => {
                 <FormItem>
                   <FormLabel>Bio</FormLabel>
                   <FormControl>
-                    <Textarea className="w-60 h-40" placeholder="Write about yourself" {...field} />
+                    <Textarea
+                      className="w-60 h-40"
+                      placeholder="Write about yourself"
+                      {...field}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-          <div className='mt-6'>
+          <div className="mt-6">
             <FormField
               control={form.control}
               name="profilePhoto"

@@ -1,4 +1,5 @@
 import Navbar from "@/components/ui/navbar";
+import { Toaster } from "@/components/ui/toaster";
 import { FC,ReactNode } from "react"
 
 interface AuthLayoutProps {
@@ -8,10 +9,9 @@ interface AuthLayoutProps {
 const AuthLayout: FC<AuthLayoutProps> = ({children}) => {
   return (
     <>
-      <Navbar/>
-      <div className="h-screen flex flex-col justify-center items-center">
-        {children}
-      </div>
+      {/* <Navbar/> */}
+      <div className="h-screen">{children}</div>
+      <Toaster />
     </>
   )
 }

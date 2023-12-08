@@ -5,7 +5,7 @@ module.exports = nextConfig
 
 module.exports = {
   images: {
-    domains: ['utfs.io'],
+    domains: ['utfs.io', 'res.cloudinary.com'],
   },
   // experimental: {
   //   reactRefresh: false,

@@ -15,13 +15,14 @@ const UserList: React.FC<UserListProps> = ({ items }) => {
         inset-y-0 
         pb-20
         lg:pb-0
-        lg:left-20 
-        lg:w-80 
+        lg:left-80
+        lg:w-40 
         lg:block
         overflow-y-auto 
         border-r 
         border-gray-200
         block w-full left-0
+        ml-20
       "
     >
       <div className="px-5">

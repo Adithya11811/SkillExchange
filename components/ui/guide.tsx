@@ -1,4 +1,7 @@
+import { staggerChildren } from "@/lib/animation"
 import InstaCards from "./instcards"
+import { motion } from "framer-motion" 
+
 
 const Guide = () => {
     const cards = [
@@ -19,8 +22,8 @@ const Guide = () => {
       },
     ]
   return (
-    <div className="mt-14">
-      <div className="text-5xl text-center font-bold">Quick Guide</div>
+    <div className="mt-16">
+      <motion.div className="text-5xl text-center font-bold" variants={staggerChildren}>Quick Guide</motion.div>
       <InstaCards cards={cards}/>
     </div>
   )

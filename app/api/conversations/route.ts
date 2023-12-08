@@ -38,13 +38,13 @@ export async function POST(request: Request) {
       },
     })
 
-    // Update all connections with new conversation
-    newConversation.participants.forEach((participant) => {
-      if (participant.email) {
-        // pusherServer.trigger(participant.email, 'conversation:new', newConversation)
-        // Uncomment the line above if you have pusherServer defined and need this functionality
-      }
-    })
+    // // Update all connections with new conversation
+    // newConversation.participants.forEach((participant) => {
+    //   if (participant.email) {
+    //     // pusherServer.trigger(participant.email, 'conversation:new', newConversation)
+    //     // Uncomment the line above if you have pusherServer defined and need this functionality
+    //   }
+    // })
 
     return NextResponse.json(newConversation)
   } catch (error) {

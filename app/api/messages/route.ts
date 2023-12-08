@@ -1,7 +1,5 @@
 import { NextResponse } from 'next/server'
-
 import getCurrentUser from '@/lib/actions/getCurrentUser'
-// import { pusherServer } from '@/app/libs/pusher'
 import { db } from '@/lib/db'
 
 export async function POST(request: Request) {
@@ -14,6 +12,29 @@ export async function POST(request: Request) {
       return new NextResponse('Unauthorized', { status: 401 })
     }
 
+    // Fetch existing messages and sort them by date
+    const existingMessages = await db.message.findMany({
+      where: {
+        conversation: {
+          id: conversationId,
+        },
+      },
+      orderBy: {
+        createdAt: 'asc', // or 'desc' if you want to sort in descending order
+      },
+    })
+
+    // Find the correct position to insert the new message
+    let insertIndex = existingMessages.findIndex(
+      (msg) => msg.createdAt > new Date()
+    )
+
+    // If no suitable position is found, insert at the end
+    if (insertIndex === -1) {
+      insertIndex = existingMessages.length
+    }
+
+    // Insert the new message at the correct position
     const newMessage = await db.message.create({
       include: {
         seen: true,
@@ -33,10 +54,14 @@ export async function POST(request: Request) {
             id: currentUser.id,
           },
         },
+        createdAt: new Date(), // Set the creation date for the new message
       },
     })
 
+    // Insert the new message at the calculated position
+    existingMessages.splice(insertIndex, 0, newMessage)
 
+    // Update the conversation with the sorted messages
     const updatedConversation = await db.conversation.update({
       where: {
         id: conversationId,
@@ -44,9 +69,7 @@ export async function POST(request: Request) {
       data: {
         lastMessageAt: new Date(),
         messages: {
-          connect: {
-            id: newMessage.id,
-          },
+          set: existingMessages.map((msg) => ({ id: msg.id })),
         },
       },
       include: {
@@ -58,19 +81,6 @@ export async function POST(request: Request) {
         },
       },
     })
-
-
-    // await pusherServer.trigger(conversationId, 'messages:new', newMessage)
-
-    // const lastMessage =
-    //   updatedConversation.messages[updatedConversation.messages.length - 1]
-
-    // updatedConversation.users.map((user) => {
-    //   pusherServer.trigger(user.email!, 'conversation:update', {
-    //     id: conversationId,
-    //     messages: [lastMessage],
-    //   })
-    // })
 
     return NextResponse.json(newMessage)
   } catch (error) {

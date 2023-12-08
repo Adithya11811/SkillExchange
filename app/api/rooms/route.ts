@@ -1,8 +1,8 @@
-import { authOptions } from "@/lib/auth"
-import { db } from "@/lib/db"
-import { Prisma } from "@prisma/client"
-import { getServerSession } from "next-auth"
-import { NextResponse } from "next/server"
+import { authOptions } from '@/lib/auth'
+import { db } from '@/lib/db'
+import { Prisma } from '@prisma/client'
+import { getServerSession } from 'next-auth'
+import { NextResponse } from 'next/server'
 import * as z from 'zod'
 
 const RoomSchema = z.object({
@@ -47,6 +47,7 @@ export async function POST(req: Request) {
       )
     }
 
+    // Create a room
     const room = await db.rooms.create({
       data: {
         participant1: { connect: { id: user1Id } },
@@ -56,10 +57,36 @@ export async function POST(req: Request) {
 
     console.log('Room created:', room)
 
+    // Make a request to the /api/conversations endpoint
+    const conversationResponse = await fetch('/api/conversations', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: user2Id }),
+    })
+
+    if (!conversationResponse.ok) {
+      console.error(
+        'Failed to create conversation:',
+        conversationResponse.statusText
+      )
+      return NextResponse.json(
+        { message: 'Failed to create conversation' },
+        { status: 500 }
+      )
+    }
+
+    const conversationData = await conversationResponse.json()
+    console.log('Conversation created:', conversationData)
+
     const { ...rest } = room
 
     return NextResponse.json(
-      { room: rest, message: 'Room Created successfully' },
+      {
+        room: rest,
+        message: 'Room and Conversation Created successfully',
+      },
       { status: 201 }
     )
   } catch (error) {
