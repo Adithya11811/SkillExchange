@@ -451,16 +451,15 @@ declare namespace AgoraRTM {
   const AreaCode: typeof RtmStatusCode.AreaCode;
 }
 
-export = AgoraRTM
-export as namespace AgoraRTM
-export {
+export default AgoraRTM
+export type {
   LocalInvitation,
   RemoteInvitation,
   RtmChannel,
   RtmClient,
-  RtmConfig,
+  RtmEvents,
   RtmMessage,
-  LogFilterType,
-  PeersOnlineStatusResult,
-  ChannelMemberCountResult,
+  RtmRawMessage,
+  RtmStatusCode,
+  RtmTextMessage,
 }

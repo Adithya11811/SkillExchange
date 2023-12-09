@@ -77,7 +77,7 @@ const Header: React.FC<HeaderProps> = ({
           </div>
         </div>
       </div>
-      <Link href={`/videocall/${roomid}?q=${user.username}`}>
+      <Link href={`/videocall/${roomid}?q=${roomid}`}>
         <Video />
       </Link>
       {/* <HiEllipsisHorizontal
