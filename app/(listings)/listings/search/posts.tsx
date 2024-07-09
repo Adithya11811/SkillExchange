@@ -27,6 +27,7 @@ const Posts = ({ posts }: PostsProps) => {
   if (!posts || posts.length === 0) {
     return <p>No requests available.</p>
   }
+
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-3 gap-4 mx-20 my-14">
       {posts.map((post) => (
@@ -37,8 +38,8 @@ const Posts = ({ posts }: PostsProps) => {
           {/* Left Side: User Image and Name */}
           <div className="flex items-center mb-4">
             <Avatar>
-              <AvatarImage src={post.user.profile.profilePhoto || ''} className='object-contain bg-zinc-300'/>
-              <AvatarFallback>CN</AvatarFallback>
+              {/* <AvatarImage src={post.user.profile.profilePhoto || ''} className='object-contain bg-zinc-300'/> */}
+              <AvatarFallback>H</AvatarFallback>
             </Avatar>
             <div className="ml-4 flex flex-col">
               <Link

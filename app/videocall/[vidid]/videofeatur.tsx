@@ -271,13 +271,13 @@ const VidFeature: React.FC<VidProps> = ({ roomId }) => {
      <div className="flex relative">
        <video
          ref={videoRef1}
-         className="grid grid-cols-[1fr,1fr] gap-4 bg-black w-full h-screen "
+         className="grid grid-cols-[1fr,1fr] gap-4 bg-black w-full m-4 smallFrame"
          autoPlay
          playsInline
        ></video>
        <video
          ref={videoRef2}
-         className="grid grid-cols-[1fr,1fr] gap-4 bg-black w-full h-72 m-4 smallFrame"
+         className="grid grid-cols-[1fr,1fr] gap-4 bg-black w-full  h-screen"
          autoPlay
          playsInline
        ></video>

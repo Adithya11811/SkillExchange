@@ -21,7 +21,8 @@ model User {
   participant2  Rooms[]     @relation("participant2")
   conversations Conversation[] @relation("participants")
   sentMessages     Message[]   @relation("sender") 
-  receivedMessages Message[]   @relation("Seen") 
+  receivedMessages Message[]   @relation("Seen")
+
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
 }
@@ -34,6 +35,7 @@ model Profile {
   contacts     String
   Bio          String   @db.VarChar(255)
   userId       Int   @unique
+  
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 

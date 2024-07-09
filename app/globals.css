@@ -48,7 +48,7 @@
     height: 170px;
     width: 300px;
     border-radius: 5px;
-    border:2px solid #b366f9;
+    border:2px solid #1b89ad;
     -webkit-box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
     box-shadow: 3px 3px 15px -1px rgba(0,0,0,0.77);
     z-index: 999;
@@ -66,7 +66,7 @@
 
 
 .control-container{
-  background-color: rgb(179, 102, 249, .9);
+  background-color: #1b89ad;
   padding: 20px;
   border-radius: 50%;
   display: flex;
@@ -95,6 +95,60 @@
             width: 20px;
         }
 }
+
+.image-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transform: scale(0.75);
+  transition: opacity 1s ease, transform 1s ease;
+}
+
+.image.is-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+}
+
+.fade-in-out {
+  animation: fadeInOut 6s infinite;
+}
+
+.fade-in-out:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.fade-in-out:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.fade-in-out:nth-child(3) {
+  animation-delay: 4s;
+}
+
 
 @layer base {
   body {
